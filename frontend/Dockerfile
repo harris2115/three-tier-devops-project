@@ -1,5 +1,5 @@
 
-FROM node:21-alpine3.17 AS build
+FROM node:22-alpine AS build
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ ENV REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL
 
 COPY package*.json .
 
-RUN npm install
+RUN npm install --no-audit --no-fund --fetch-retries=5 --fetch-timeout=300000
 
 COPY . . 
 

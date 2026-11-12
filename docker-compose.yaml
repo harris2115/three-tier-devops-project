@@ -1,4 +1,4 @@
-version: '3.9'
+
 
 services:
   db:
@@ -6,14 +6,14 @@ services:
     image: mysql:8.0.40-oraclelinux9
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: mysql123
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: school
     volumes:
       - mysql-data:/var/lib/mysql
     ports:
       - "3306:3306"
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pmysql123"]
+      test: ["CMD-SHELL", 'mysqladmin ping -h 127.0.0.1 -uroot -p"$${MYSQL_ROOT_PASSWORD}"']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -29,7 +29,7 @@ services:
     environment:
       host: db
       user: root
-      password: mysql123
+      password: ${MYSQL_ROOT_PASSWORD}
       database: school
     depends_on:
       db:
@@ -40,11 +40,11 @@ services:
     build:
       context: frontend/
       args:
-        REACT_APP_API_BASE_URL: http://localhost:3500
+        REACT_APP_API_BASE_URL: ""
     image: frontend-image
     restart: always
     ports:
-      - "80:80"
+      - "8081:80"
     depends_on:
       backend:
         condition: service_started
