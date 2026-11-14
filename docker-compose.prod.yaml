@@ -1,0 +1,43 @@
+
+services:
+  db:
+    image: mysql:8.0.40-oraclelinux9
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in EC2 .env}"
+      MYSQL_DATABASE: school
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'mysqladmin ping -h 127.0.0.1 -uroot -p"$${MYSQL_ROOT_PASSWORD}"'
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    image: harris2115/three-tier-backend:${IMAGE_TAG:-latest}
+    restart: always
+    environment:
+      host: db
+      user: root
+      password: "${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in EC2 .env}"
+      database: school
+    expose:
+      - "3500"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    image: harris2115/three-tier-frontend:${IMAGE_TAG:-latest}
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_started
+
+volumes:
+  mysql-data:
