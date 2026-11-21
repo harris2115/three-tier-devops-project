@@ -1,10 +1,7 @@
-FROM mysql:latest
-
-ENV MYSQL_ROOT_PASSWORD=mysql123
-ENV MYSQL_DATABASE=school
-
-VOLUME /var/lib/mysql-data
+# Optional standalone MySQL image definition for learning/testing.
+# The active Compose files use the official MySQL image directly.
+FROM mysql:8.0.40-oraclelinux9
 
 EXPOSE 3306
 
-CMD ["mysqld"]
+VOLUME ["/var/lib/mysql"]
