@@ -9,7 +9,7 @@ pipeline {
 
     environment {
         DOCKERHUB_NAMESPACE = 'harris2115'
-        EC2_HOST = '32.236.184.233'
+        EC2_HOST = '15.135.165.66'
         DEPLOY_DIR = '/home/ubuntu/three-tier-app'
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
