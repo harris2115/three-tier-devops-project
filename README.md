@@ -408,7 +408,17 @@ If the EC2 public IP changes, use the new address in the SSH tunnel command and 
 
 ## Screenshots
 
-The `screenshots/` directory contains evidence from the application and Docker implementation. Additional Jenkins, AWS, Prometheus and Grafana screenshots can be added as they are captured. Please ensure screenshots do not expose credentials, tokens, private IP details that should remain private, or other sensitive information.
+The repository currently includes evidence from the application and Docker implementation:
+
+### Student Portal
+
+![Student Portal homepage](screenshots/homepage.png)
+
+### Docker Compose deployment
+
+![Docker Compose services running](screenshots/compose-up-success1.png)
+
+Additional Jenkins pipeline, AWS deployment, Prometheus targets and Grafana dashboard screenshots can be added to the `screenshots/` directory. Please ensure screenshots do not expose credentials, tokens, private key material or other sensitive information.
 
 ## Author
 
