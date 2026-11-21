@@ -1,10 +1,27 @@
+# Dependencies and build output
 node_modules/
+dist/
+build/
+coverage/
+
+# Environment files and secrets
 .env
 .env.*
 !.env.example
-dist/
-build/
-.DS_Store
+*.pem
+*.key
+*.p12
+*.pfx
+*.tfvars
+*.tfstate
+*.tfstate.*
+.terraform/
 
+# Logs and operating-system files
+*.log
+.DS_Store
+Thumbs.db
+
+# Local SSH material and temporary config
 /ssh_key/
 /frontend/nginx.conf.backup
