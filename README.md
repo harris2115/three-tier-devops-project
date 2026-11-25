@@ -18,6 +18,8 @@
 
 **Repository:** [harris2115/three-tier-devops-project](https://github.com/harris2115/three-tier-devops-project)
 
+> **Project status:** The application was successfully deployed and tested on AWS EC2 as part of this project. The EC2 instance has since been terminated, so the application is not currently hosted or publicly accessible. The deployment, monitoring, and recovery results documented below describe the completed project while the infrastructure was running.
+
 ---
 
 ---
@@ -1677,6 +1679,8 @@ recovery after a host restart.
 The project demonstrated application containerisation, AWS deployment,
 CI/CD automation, infrastructure monitoring, and basic operational
 recovery.
+
+**Current hosting status:** The EC2 instance used for this deployment has since been terminated. The screenshots and verification results in this section are historical evidence captured while the environment was running; they do not indicate that a live application is currently available.
 
 ---
 
