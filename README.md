@@ -768,7 +768,7 @@ terraform validate
 Generate an execution plan:
 
 ```cmd
-terraform plan -out=tfplan
+terraform plan
 ```
 
 Review the proposed resources carefully. The plan should include the VPC, subnets, internet gateway, route table association, security group, key pair, and EC2 instance.
@@ -780,7 +780,7 @@ Review the proposed resources carefully. The plan should include the VPC, subnet
 Apply the saved plan:
 
 ```cmd
-terraform apply tfplan
+terraform apply
 ```
 
 Review the output and confirm the operation when Terraform asks for approval.
