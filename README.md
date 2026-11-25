@@ -702,9 +702,42 @@ In the current single-EC2 Docker deployment, frontend-to-backend and backend-to-
 
 ### 7. Review the AWS network layout
 
-The intended Terraform network layout is shown below. The public subnet contains the EC2 host; the private subnet is reserved in the VPC configuration for future private-tier resources.
+The Terraform configuration creates one VPC with a public subnet and a private subnet. The EC2 instance is deployed in the **public subnet** and runs the complete application stack as Docker containers. The private subnet is currently reserved for future private-tier resources; it does not host a separate backend or database instance in the current deployment.
 
-![AWS VPC network architecture](assets/aws-terraform/image6.png)
+```mermaid
+flowchart TB
+    Internet((Internet)) --> IGW[Internet Gateway]
+    subgraph AWS["AWS Cloud"]
+      subgraph VPC["VPC · 10.0.0.0/16"]
+        subgraph Public["Public subnet · 10.0.1.0/24"]
+          SG["EC2 Security Group<br/>HTTP 80 · HTTPS 443 · SSH 22"]
+          EC2["Single EC2 instance<br/>Ubuntu · Public IP"]
+          SG --> EC2
+          subgraph Docker["Docker containers on the EC2 host"]
+            FE["Frontend<br/>React · Nginx"]
+            BE["Backend<br/>Node.js · API :3500"]
+            DB["Database<br/>MySQL"]
+          end
+          EC2 --> FE
+          EC2 --> BE
+          EC2 --> DB
+        end
+        subgraph Private["Private subnet · 10.0.2.0/24"]
+          Reserved["Reserved for future private-tier resources"]
+        end
+      end
+    end
+    IGW --> Public
+```
+
+**How to read this layout:**
+
+- Internet traffic reaches the public subnet through the Internet Gateway and the public route table.
+- The EC2 security group allows inbound HTTP (80), HTTPS (443), and SSH (22), with SSH restricted to the configured administrator IP.
+- The frontend, backend, and MySQL run as containers on the **same EC2 host**. The backend and database communicate over the Docker network and are not exposed as public EC2 host ports.
+- The private subnet exists in the VPC configuration but is not currently attached to a separate application instance.
+
+This reflects the deployed single-EC2 architecture rather than a three-instance design.
 
 ### 8. Initialise, format, validate, and plan
 
