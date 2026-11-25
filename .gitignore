@@ -1,27 +1,25 @@
-# Dependencies and build output
-node_modules/
-dist/
-build/
-coverage/
+# Terraform downloaded providers
+**/.terraform/
 
-# Environment files and secrets
-.env
-.env.*
-!.env.example
-*.pem
-*.key
-*.p12
-*.pfx
-*.tfvars
+# Terraform state
 *.tfstate
 *.tfstate.*
-.terraform/
+*.tfplan
+tfplan
 
-# Logs and operating-system files
-*.log
-.DS_Store
-Thumbs.db
+# Terraform crash logs
+crash.log
+crash.*.log
 
-# Local SSH material and temporary config
-/ssh_key/
-/frontend/nginx.conf.backup
+# Terraform override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform local files
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+tfplan
