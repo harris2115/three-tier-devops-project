@@ -23,3 +23,29 @@ override.tf.json
 *.tfstate.*
 *.tfplan
 tfplan
+
+# Environment variables and secrets
+.env
+**/.env
+.env.*
+**/.env.*
+!.env.example
+!**/.env.example
+
+# SSH private keys and local SSH directory
+ssh_key/
+*.pem
+*.key
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# macOS files
+.DS_Store
+**/.DS_Store
+
+# Backup files
+*.backup
+*.bak
+
