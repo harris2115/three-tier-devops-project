@@ -704,31 +704,7 @@ In the current single-EC2 Docker deployment, frontend-to-backend and backend-to-
 
 The Terraform configuration creates one VPC with a public subnet and a private subnet. The EC2 instance is deployed in the **public subnet** and runs the complete application stack as Docker containers. The private subnet is currently reserved for future private-tier resources; it does not host a separate backend or database instance in the current deployment.
 
-```mermaid
-flowchart TB
-    Internet((Internet)) --> IGW[Internet Gateway]
-    subgraph AWS["AWS Cloud"]
-      subgraph VPC["VPC · 10.0.0.0/16"]
-        subgraph Public["Public subnet · 10.0.1.0/24"]
-          SG["EC2 Security Group<br/>HTTP 80 · HTTPS 443 · SSH 22"]
-          EC2["Single EC2 instance<br/>Ubuntu · Public IP"]
-          SG --> EC2
-          subgraph Docker["Docker containers on the EC2 host"]
-            FE["Frontend<br/>React · Nginx"]
-            BE["Backend<br/>Node.js · API :3500"]
-            DB["Database<br/>MySQL"]
-          end
-          EC2 --> FE
-          EC2 --> BE
-          EC2 --> DB
-        end
-        subgraph Private["Private subnet · 10.0.2.0/24"]
-          Reserved["Reserved for future private-tier resources"]
-        end
-      end
-    end
-    IGW --> Public
-```
+![AWS Terraform network layout showing the single EC2 host, Docker application containers, and reserved private subnet](assets/aws-terraform/aws-network-layout.svg)
 
 **How to read this layout:**
 
