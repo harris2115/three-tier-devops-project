@@ -704,7 +704,7 @@ In the current single-EC2 Docker deployment, frontend-to-backend and backend-to-
 
 The Terraform configuration creates one VPC with a public subnet and a private subnet. The EC2 instance is deployed in the **public subnet** and runs the complete application stack as Docker containers. The private subnet is currently reserved for future private-tier resources; it does not host a separate backend or database instance in the current deployment.
 
-![AWS Terraform network layout showing the single EC2 host, Docker application containers, and reserved private subnet](assets/aws-terraform/aws-network-layout.svg)
+![AWS Terraform network layout showing the single EC2 host, Docker application containers, and reserved private subnet](assets/aws-terraform/aws-terraform-network-layout.jpg)
 
 **How to read this layout:**
 
